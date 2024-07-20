@@ -6,7 +6,16 @@ spec:
   hosts:
   - nginx-service
   http:
-    - route:
+  - fault:
+      delay:
+        fixedDelay: 10s
+        percentage:
+          value: 70
+      # abort:
+      #   httpStatus: 400
+      #   percentage:
+      #     value: 50
+    route:
       - destination:
           host: nginx-service
           subset: v1
@@ -37,6 +46,3 @@ spec:
     - name: v2
       labels:
         version: B
-
-
-
